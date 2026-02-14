@@ -10,7 +10,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #3a0f2c, #2b145e, #0f2c3a);
+    background: linear-gradient(135deg, #2a0a1f, #1b0f3f, #0a2230);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +19,7 @@ body {
 }
 
 .container {
+    position: relative;
     text-align: center;
     background: rgba(255,255,255,0.95);
     padding: 50px;
@@ -49,10 +50,14 @@ h1 {
     50% { transform: scale(1.2); }
 }
 
+.buttons {
+    position: relative;
+    height: 120px;
+}
+
 button {
     font-size: 24px;
     padding: 14px 35px;
-    margin: 15px;
     border-radius: 50px;
     border: none;
     cursor: pointer;
@@ -65,8 +70,10 @@ button {
 }
 
 #no {
-    background: #aaa;
+    background: #bbb;
     position: absolute;
+    left: 55%;
+    top: 0;
 }
 
 .message {
@@ -86,7 +93,6 @@ button {
     position: fixed;
     width: 120px;
     animation: float 4s infinite ease-in-out;
-    z-index: 5;
 }
 
 @keyframes float {
@@ -97,7 +103,6 @@ button {
     position: fixed;
     top: -10px;
     animation: fall 4s linear forwards;
-    z-index: 4;
 }
 
 @keyframes fall {
@@ -117,8 +122,10 @@ button {
     <div class="name">Shamira 💖</div>
     <div class="heart">❤️</div>
 
-    <button id="yes">SÍ 💕</button>
-    <button id="no">NO 😢</button>
+    <div class="buttons">
+        <button id="yes">SÍ 💕</button>
+        <button id="no">NO 😢</button>
+    </div>
 
     <div class="message" id="message">
         <h2>✨ Sabía que aceptarías ✨</h2>
@@ -132,13 +139,45 @@ button {
 </div>
 
 <script>
-let noBtn = document.getElementById("no");
-let yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
 let scale = 1;
 
-noBtn.addEventListener("mouseover", () => {
-    scale -= 0.12;
-    if (scale <= 0.25) scale = 0.25;
-    noBtn.style.transform = "scale(" + scale + ")";
-    noBtn.style.left = Math.random() * 80 + "%";
-    noBtn.style.top = Math.random() * 80 + "*
+noBtn.addEventListener("mouseenter", () => {
+    scale -= 0.15;
+    if (scale < 0.25) scale = 0.25;
+    noBtn.style.transform = `scale(${scale})`;
+    noBtn.style.left = Math.random() * 70 + "%";
+    noBtn.style.top = Math.random() * 60 + "px";
+});
+
+yesBtn.addEventListener("click", () => {
+    document.getElementById("message").style.display = "block";
+    noBtn.style.display = "none";
+    lanzarAmor();
+});
+
+function lanzarAmor() {
+    for (let i = 0; i < 120; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.innerHTML = Math.random() > 0.5 ? "❤️" : "💖";
+        c.style.left = Math.random()*100 + "%";
+        c.style.fontSize = (Math.random()*25 + 15) + "px";
+        c.style.animationDuration = (Math.random()*3 + 2) + "s";
+        document.body.appendChild(c);
+    }
+
+    for (let i = 0; i < 8; i++) {
+        let s = document.createElement("img");
+        s.src = "https://media.tenor.com/0AVbKGY_MxMAAAAC/snoopy-love.gif";
+        s.className = "snoopy";
+        s.style.left = Math.random()*85 + "%";
+        s.style.top = Math.random()*85 + "%";
+        document.body.appendChild(s);
+    }
+}
+</script>
+
+</body>
+</html>
