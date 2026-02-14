@@ -10,9 +10,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ff9ad5, #b28dff, #8fd3f4);
-    background-size: 300% 300%;
-    animation: bgMove 8s infinite alternate;
+    background: linear-gradient(135deg, #3a0f2c, #2b145e, #0f2c3a);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,88 +18,90 @@ body {
     overflow: hidden;
 }
 
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
 .container {
     text-align: center;
     background: rgba(255,255,255,0.95);
     padding: 50px;
     border-radius: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     z-index: 10;
 }
 
 h1 {
     font-family: 'Great Vibes', cursive;
-    font-size: 70px;
-    color: #ff2f92;
+    font-size: 64px;
+    color: #5a0028;
 }
 
 .name {
-    font-size: 36px;
-    color: #7b2cff;
+    font-size: 32px;
+    color: #3b005f;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .heart {
-    font-size: 90px;
+    font-size: 80px;
     animation: beat 1s infinite;
 }
 
 @keyframes beat {
-    50% { transform: scale(1.3); }
+    50% { transform: scale(1.2); }
 }
 
 button {
-    font-size: 26px;
-    padding: 16px 45px;
+    font-size: 24px;
+    padding: 14px 35px;
     margin: 15px;
     border-radius: 50px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 #yes {
-    background: linear-gradient(135deg, #ff4d9d, #ff8ccf);
+    background: linear-gradient(135deg, #6a0033, #a0145a);
     color: white;
 }
 
 #no {
-    background: #ccc;
+    background: #aaa;
     position: absolute;
 }
 
 .message {
     display: none;
-    font-size: 28px;
-    color: #b1005a;
+    font-size: 26px;
+    color: #3a0018;
     margin-top: 30px;
-    animation: fadeIn 2s ease forwards;
+    animation: fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .snoopy {
     position: fixed;
     width: 120px;
+    animation: float 4s infinite ease-in-out;
+    z-index: 5;
+}
+
+@keyframes float {
+    50% { transform: translateY(-20px); }
 }
 
 .confetti {
     position: fixed;
     top: -10px;
-    animation: fall 4s linear infinite;
+    animation: fall 4s linear forwards;
+    z-index: 4;
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(720deg);
-    }
+    to { transform: translateY(110vh); }
 }
 </style>
 </head>
@@ -123,10 +123,10 @@ button {
     <div class="message" id="message">
         <h2>✨ Sabía que aceptarías ✨</h2>
         <p>
-            Nunca olvides que eres lo que más amo,<br>
-            eres más que la mujer perfecta,<br>
-            eres <strong>mi mujer</strong>.<br><br>
-            Con todo mi amor 💖
+            Nunca olvides que eres lo que más amo.<br>
+            Eres más que la mujer perfecta.<br><br>
+            <strong>Eres mi mujer.</strong><br>
+            A la que amo tanto. 💖
         </p>
     </div>
 </div>
@@ -134,41 +134,11 @@ button {
 <script>
 let noBtn = document.getElementById("no");
 let yesBtn = document.getElementById("yes");
+let scale = 1;
 
 noBtn.addEventListener("mouseover", () => {
-    noBtn.style.left = Math.random()*80 + "%";
-    noBtn.style.top = Math.random()*80 + "%";
-    noBtn.style.fontSize = Math.max(5, noBtn.offsetWidth - 5) + "px";
-});
-
-yesBtn.addEventListener("click", () => {
-    document.getElementById("message").style.display = "block";
-    noBtn.style.display = "none";
-    launchLove();
-});
-
-function launchLove() {
-    for (let i = 0; i < 200; i++) {
-        let c = document.createElement("div");
-        c.className = "confetti";
-        c.innerHTML = Math.random() > 0.5 ? "❤️" : "💖";
-        c.style.left = Math.random()*100 + "%";
-        c.style.fontSize = (Math.random()*25 + 15) + "px";
-        c.style.animationDuration = (Math.random()*3 + 2) + "s";
-        document.body.appendChild(c);
-    }
-
-    for (let i = 0; i < 10; i++) {
-        let s = document.createElement("img");
-        s.src = "https://i.imgur.com/QZ6xZyP.png";
-        s.className = "snoopy";
-        s.style.left = Math.random()*90 + "%";
-        s.style.top = Math.random()*90 + "%";
-        document.body.appendChild(s);
-    }
-}
-</script>
-
-</body>
-</html>
-
+    scale -= 0.12;
+    if (scale <= 0.25) scale = 0.25;
+    noBtn.style.transform = "scale(" + scale + ")";
+    noBtn.style.left = Math.random() * 80 + "%";
+    noBtn.style.top = Math.random() * 80 + "*
